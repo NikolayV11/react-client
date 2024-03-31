@@ -17,7 +17,12 @@ export const Header = () => {
         <p className="font-bold text-inherit">Мини блог</p>
       </NavbarBrand>
       <NavbarContent justify="end">
-        <NavbarItem className="lg:flex text-3x1 cursor-pointer">
+        <NavbarItem
+          className="lg:flex text-3x1 cursor-pointer"
+          onClick={() => {
+            toggleTheme()
+          }}
+        >
           {theme === "light" ? <FaRegMoon /> : <LuSunMedium />}
         </NavbarItem>
         <NavbarItem></NavbarItem>

@@ -11,9 +11,9 @@ export const Layout = () => {
       <Container>
         <div className="flex-2 p-4">
           <NavBar />
-          <div className="flex-1 p-4">
-            <Outlet />
-          </div>
+        </div>
+        <div className="flex-1 p-4">
+          <Outlet />
         </div>
       </Container>
     </>
