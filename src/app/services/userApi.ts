@@ -10,7 +10,7 @@ export const userApi = api.injectEndpoints({
       query: userData => ({
         url: "/login",
         method: "POST",
-        Body: userData,
+        body: userData,
       }),
     }),
     register: builder.mutation<
