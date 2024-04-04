@@ -26,7 +26,6 @@ export const Header = () => {
     dispatch(logout())
     // удаляем токен из памяти
     localStorage.removeItem("token")
-    toggleTheme()
     // перебрасываем на авторизация
     navigate("/auth")
   }
