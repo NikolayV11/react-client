@@ -32,7 +32,7 @@ export type Post = {
   authorId: string
   likes: Like[]
   comments: Comment[]
-  likedByUser: boolean
+  likeByUser: boolean
   createdAt: Date
   updatedAt: Date
 }

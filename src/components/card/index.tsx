@@ -43,7 +43,7 @@ type Props = {
   createdAt?: Date
   id?: string
   cardFor: "comment" | "post" | "current-post"
-  likedByUser?: boolean
+  likeByUser?: boolean
 }
 
 export const Card = ({
@@ -57,7 +57,7 @@ export const Card = ({
   createdAt,
   id = "",
   cardFor = "post",
-  likedByUser = false,
+  likeByUser = false,
 }: Props) => {
   const [likePost] = useLikePostMutation()
   const [unlikePost] = useUnlikePostMutation()
@@ -114,6 +114,23 @@ export const Card = ({
     }
   }
 
+  // like/unlike
+  const handleClick = async () => {
+    try {
+      likeByUser
+        ? await unlikePost(id).unwrap()
+        : await likePost({ postId: id }).unwrap()
+
+      await refetchPost()
+    } catch (error) {
+      if (hasErrorField(error)) {
+        setError(error.data.error)
+      } else {
+        setError(error as string)
+      }
+    }
+  }
+
   return (
     <NextUiCard className="mb-5">
       <CardHeader className="justify-between items-center bg-transparent">
@@ -141,10 +158,10 @@ export const Card = ({
       {cardFor !== "comment" && (
         <CardFooter className="gap-5">
           <div className="flex gap-5 items-center">
-            <div>
+            <div onClick={handleClick}>
               <MetaInfo
                 count={likesCount}
-                Icon={likedByUser ? FcDislike : MdOutlineFavoriteBorder}
+                Icon={likeByUser ? FcDislike : MdOutlineFavoriteBorder}
               />
             </div>
             <Link to={`/post/${id}`}>
