@@ -89,6 +89,7 @@ export const Card = ({
   }
 
   const handleDelete = async () => {
+    console.log(cardFor)
     try {
       switch (cardFor) {
         case "post":
@@ -100,7 +101,7 @@ export const Card = ({
           navigate("/")
           break
         case "comment":
-          await deleteComment(id).unwrap()
+          await deleteComment(commentId).unwrap()
           await refetchPost()
           break
         default:

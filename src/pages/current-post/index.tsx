@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useGetPostByIdQuery } from "../../app/services/postsApi"
 import { Card } from "../../components/card"
 import { GoBack } from "../../components/go-back"
+import { CreateComment } from "../../components/create-comment"
 
 export const CurrentPost = () => {
   // получили параметры строки url
@@ -13,7 +14,7 @@ export const CurrentPost = () => {
   if (!data) {
     return <h2>Поста не существует</h2>
   }
-  console.log(data)
+
   const {
     id,
     content,
@@ -39,6 +40,9 @@ export const CurrentPost = () => {
         likedByUser={likedByUser}
         createdAt={createdAt}
       />
+      <div className="mt-10">
+        <CreateComment />
+      </div>
       <div className="mt-10">
         {data.comments
           ? data.comments.map(comment => {
