@@ -39,6 +39,24 @@ export const CurrentPost = () => {
         likedByUser={likedByUser}
         createdAt={createdAt}
       />
+      <div className="mt-10">
+        {data.comments
+          ? data.comments.map(comment => {
+              return (
+                <Card
+                  cardFor="comment"
+                  key={comment.id}
+                  avatarUrl={comment.user.avatarUrl ?? ""}
+                  content={comment.content}
+                  name={comment.user.name ?? ""}
+                  authorId={comment.userId}
+                  commentId={comment.id}
+                  id={id}
+                />
+              )
+            })
+          : null}
+      </div>
     </>
   )
 }
