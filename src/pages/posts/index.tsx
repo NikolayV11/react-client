@@ -20,7 +20,7 @@ export const Posts = () => {
               authorId,
               comments,
               likes,
-              likeByUser,
+              likedByUser,
               createdAt,
             }) => {
               return (
@@ -33,7 +33,7 @@ export const Posts = () => {
                   commentsCount={comments.length}
                   authorId={authorId}
                   id={id}
-                  likeByUser={likeByUser}
+                  likedByUser={likedByUser}
                   createdAt={createdAt}
                   cardFor="post"
                 />

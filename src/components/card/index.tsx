@@ -43,7 +43,7 @@ type Props = {
   createdAt?: Date
   id?: string
   cardFor: "comment" | "post" | "current-post"
-  likeByUser?: boolean
+  likedByUser?: boolean
 }
 
 export const Card = ({
@@ -57,7 +57,7 @@ export const Card = ({
   createdAt,
   id = "",
   cardFor = "post",
-  likeByUser = false,
+  likedByUser = false,
 }: Props) => {
   const [likePost] = useLikePostMutation()
   const [unlikePost] = useUnlikePostMutation()
@@ -77,7 +77,8 @@ export const Card = ({
         await triggerGetAllPosts().unwrap()
         break
       case "current-post":
-        await triggerGetAllPosts().unwrap()
+        /* await triggerGetAllPosts().unwrap()*/
+        await triggerGetPostById(id).unwrap()
         break
       case "comment":
         await triggerGetPostById(id).unwrap()
@@ -117,7 +118,7 @@ export const Card = ({
   // like/unlike
   const handleClick = async () => {
     try {
-      likeByUser
+      likedByUser
         ? await unlikePost(id).unwrap()
         : await likePost({ postId: id }).unwrap()
 
@@ -161,10 +162,10 @@ export const Card = ({
             <div onClick={handleClick}>
               <MetaInfo
                 count={likesCount}
-                Icon={likeByUser ? FcDislike : MdOutlineFavoriteBorder}
+                Icon={likedByUser ? FcDislike : MdOutlineFavoriteBorder}
               />
             </div>
-            <Link to={`/post/${id}`}>
+            <Link to={`/posts/${id}`}>
               <MetaInfo count={commentsCount} Icon={FaRegComment} />
             </Link>
           </div>
