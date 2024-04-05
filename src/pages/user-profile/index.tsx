@@ -54,6 +54,23 @@ export const UserProfile = () => {
     return null
   }
 
+  // подписаться/отписаться от пользователя
+  const handleFollow = async () => {
+    try {
+      if (id) {
+        data?.isFollowing
+          ? await unfollowUser({ followingId: id }).unwrap()
+          : await followUser({ followingId: id }).unwrap()
+
+        await triggerGetUserByIdQuery(id)
+
+        await triggerCurrentQuery()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <GoBack />
@@ -70,6 +87,7 @@ export const UserProfile = () => {
             {data.name}
             {currentUser?.id !== id ? (
               <Button
+                onClick={handleFollow}
                 color={data.isFollowing ? "default" : "primary"}
                 variant="flat"
                 className="gap-2"
