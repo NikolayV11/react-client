@@ -37,7 +37,7 @@ export const CreatePost = () => {
         control={control}
         defaultValue=""
         rules={{
-          required: "Обезательное поле",
+          required: "Обязательное поле",
         }}
         render={({ field }) => (
           <Textarea

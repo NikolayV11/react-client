@@ -25,6 +25,7 @@ export const CurrentPost = () => {
     createdAt,
     likes,
   } = data
+
   return (
     <>
       <GoBack />
@@ -59,7 +60,7 @@ export const CurrentPost = () => {
                 />
               )
             })
-          : null}
+          : ""}
       </div>
     </>
   )

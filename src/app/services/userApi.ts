@@ -29,7 +29,7 @@ export const userApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
-    getuserById: builder.query<User, string>({
+    getUserById: builder.query<User, string>({
       query: id => ({
         url: `/users/${id}`,
         method: "GET",
@@ -49,11 +49,11 @@ export const {
   useLoginMutation,
   useCurrentQuery,
   useLazyCurrentQuery,
-  useGetuserByIdQuery,
-  useLazyGetuserByIdQuery,
+  useGetUserByIdQuery,
+  useLazyGetUserByIdQuery,
   useUpdateUserMutation,
 } = userApi
 
 export const {
-  endpoints: { login, register, current, getuserById, updateUser },
+  endpoints: { login, register, current, getUserById, updateUser },
 } = userApi

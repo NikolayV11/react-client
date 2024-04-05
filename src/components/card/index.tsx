@@ -7,29 +7,45 @@ import {
   Card as NextUiCard,
   Spinner,
 } from "@nextui-org/react"
+
 import {
   useLikePostMutation,
   useUnlikePostMutation,
 } from "../../app/services/likesApi"
+
 import {
   useDeletePostMutation,
   useLazyGetAllPostsQuery,
   useLazyGetPostByIdQuery,
 } from "../../app/services/postsApi"
+
 import { useDeleteCommentMutation } from "../../app/services/commentsApi"
+
 import { Link, useNavigate } from "react-router-dom"
+
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { useSelector } from "react-redux"
+
 import { selectCurrent } from "../../features/user/userSlice"
+
 import { User } from "../user"
+
 import { formatToClientDate } from "../../app/utils/format-to-client-data"
+
 import { RiDeleteBinLine } from "react-icons/ri"
+
 import { Typography } from "../typography"
+
 import { MetaInfo } from "../meta-info"
+
 import { FcDislike } from "react-icons/fc"
+
 import { MdOutlineFavoriteBorder } from "react-icons/md"
+
 import { FaRegComment } from "react-icons/fa"
+
 import { ErrorMessage } from "../error-message"
+
 import { hasErrorField } from "../../app/utils/has-error-fild"
 
 type Props = {
@@ -124,6 +140,7 @@ export const Card = ({
         : await likePost({ postId: id }).unwrap()
 
       await refetchPost()
+      // await triggerGetPostById(id).unwrap()
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.error)
