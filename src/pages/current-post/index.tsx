@@ -2,6 +2,7 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import { useGetPostByIdQuery } from "../../app/services/postsApi"
 import { Card } from "../../components/card"
+import { GoBack } from "../../components/go-back"
 
 export const CurrentPost = () => {
   // получили параметры строки url
@@ -25,6 +26,7 @@ export const CurrentPost = () => {
   } = data
   return (
     <>
+      <GoBack />
       <Card
         cardFor="current-post"
         avatarUrl={author.avatarUrl ?? ""}
