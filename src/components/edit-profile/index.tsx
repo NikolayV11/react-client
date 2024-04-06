@@ -16,6 +16,7 @@ import {
 import { Input } from "../input"
 import { MdOutlineEmail } from "react-icons/md"
 import { ErrorMessage } from "../error-message"
+import { hasErrorField } from "../../app/utils/has-error-fild"
 
 type Props = {
   isOpen: boolean
@@ -46,6 +47,52 @@ export const EditProfile = ({ isOpen, onClose, user }: Props) => {
     },
   })
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files !== null) {
+      setSelectedFile(event.target.files[0])
+    }
+  }
+
+  const onSubmit = async (data: User) => {
+    if (id) {
+      try {
+        const formData = new FormData()
+        // изменение имени
+        data.name && formData.append("name", data.name)
+
+        // проверка email изменили?
+        data.email &&
+          data.email !== user?.email &&
+          formData.append("email", data.email)
+
+        // дата рождения
+        data.dateOfBirth &&
+          formData.append(
+            "dateOfBirth",
+            new Date(data.dateOfBirth).toISOString(),
+          )
+
+        // о себе
+        data.bio && formData.append("bio", data.bio)
+
+        // место нахождения
+        data.location && formData.append("location", data.location)
+
+        // добавление изображения
+        selectedFile && formData.append("avatar", selectedFile)
+
+        // отправка новых данных
+        await updateUser({ UserData: formData, id }).unwrap()
+
+        onClose()
+      } catch (error) {
+        if (hasErrorField(error)) {
+          setError(error.data.error)
+        }
+      }
+    }
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -59,7 +106,10 @@ export const EditProfile = ({ isOpen, onClose, user }: Props) => {
               Изменение профиля
             </ModalHeader>
             <ModalBody>
-              <form className="flex flex-col gap-4">
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <Input
                   name="email"
                   type="email"
@@ -72,6 +122,7 @@ export const EditProfile = ({ isOpen, onClose, user }: Props) => {
                   name="avatarUrl"
                   type="file"
                   placeholder="Выберете файл"
+                  onChange={handleFileChange}
                 />
                 <Input
                   name="dateOfBirth"
